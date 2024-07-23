@@ -1,0 +1,8 @@
+nav:
+  - team.md
+  - dev_environment.md
+  - docker.md
+  - issues.md
+  - git.md
+  - documentation.md
+  - ...
