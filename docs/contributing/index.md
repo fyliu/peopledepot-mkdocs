@@ -15,3 +15,7 @@ Thank you for volunteering your time! The following is a set of guidelines for c
 - [Issues](issues.md)
 
 - [Documentation](documentation.md)
+
+- [How-to](how-to/index.md)
+
+- [Tools](tools/index.md)
