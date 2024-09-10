@@ -13,7 +13,11 @@ theme:
     - content.code.select
     - navigation.expand
     - navigation.indexes
-    - navigation.sections
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
     - toc.integrate
 
 plugins:
