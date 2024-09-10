@@ -4,6 +4,7 @@
     - [Introduction](intro.md)
     - [License](license.md)
 1. Topics
+    - Architecture
     - Authentication
     - User Permissions
     - Projects

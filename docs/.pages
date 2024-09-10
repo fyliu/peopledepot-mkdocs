@@ -1,6 +1,6 @@
 nav:
-  - About
-  - architecture
-  - ref
+  - about
+  - topics
   - howto
+  - ref
   - contributing
