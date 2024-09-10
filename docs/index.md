@@ -1,4 +1,4 @@
-# Contents
+# Site Contents
 
 1. About
     - [Introduction](intro.md)
