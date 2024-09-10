@@ -141,8 +141,8 @@ repos:
         exclude: |
           (?x)^(
             .github/ISSUE_TEMPLATE/|
-            docs/index.md$|
-            docs/license.md$
+            docs/About.intro.md$|
+            docs/About.license.md$
           )
         additional_dependencies:
           - mdformat-admon
