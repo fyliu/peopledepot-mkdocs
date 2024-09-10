@@ -16,7 +16,8 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs
-    - navigation.tabs.sticky
+    - navigation.top
+    # - navigation.tabs.sticky
     - navigation.tracking
     - toc.integrate
 
