@@ -26,6 +26,7 @@ plugins:
   - autolinks
   - awesome-pages
   - redoc-tag
+  - render_swagger
 
 markdown_extensions:
   - abbr
