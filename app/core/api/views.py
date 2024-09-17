@@ -66,9 +66,10 @@ class UserProfileAPIView(RetrieveModelMixin, GenericAPIView):
 
 @extend_schema_view(
     list=extend_schema(
-        summary="Users List",
-        description="Return a list of all the existing users",
+        summary="List system users",
+        description="List users in the system",
         parameters=[
+            UserSerializer,
             OpenApiParameter(
                 name="email",
                 type=str,
@@ -96,13 +97,22 @@ class UserProfileAPIView(RetrieveModelMixin, GenericAPIView):
                     ),
                 ],
             ),
+            OpenApiParameter(
+                name="current_skills",
+                description="User-defined set of skills",
+                type=OpenApiTypes.STR,
+            ),
         ],
     ),
-    create=extend_schema(description="Create a new user"),
-    retrieve=extend_schema(description="Return the given user"),
-    destroy=extend_schema(description="Delete the given user"),
-    update=extend_schema(description="Update the given user"),
-    partial_update=extend_schema(description="Partially update the given user"),
+    create=extend_schema(summary="Create a user", description="Create a new user"),
+    retrieve=extend_schema(summary="Get a user", description="Return the given user"),
+    destroy=extend_schema(summary="Delete a user", description="Delete the given user"),
+    update=extend_schema(
+        summary="Update a user (not used)", description="Update the given user"
+    ),
+    partial_update=extend_schema(
+        summary="Update a user", description="Partially update the given user"
+    ),
 )
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
