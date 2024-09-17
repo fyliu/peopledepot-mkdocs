@@ -1,0 +1,3454 @@
+openapi: 3.0.3
+info:
+  title: PeopleDepot API
+  version: 1.0.0
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /affiliates/:
+    get:
+      operationId: affiliates_list
+      description: Return a list of all the affiliates
+      tags:
+      - affiliates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliate'
+          description: ''
+    post:
+      operationId: affiliates_create
+      description: Create a new affiliate
+      tags:
+      - affiliates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+          description: ''
+  /affiliates/{uuid}/:
+    get:
+      operationId: affiliates_retrieve
+      description: Return the details of a affiliate
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliate.
+        required: true
+      tags:
+      - affiliates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+          description: ''
+    put:
+      operationId: affiliates_update
+      description: Update a affiliate
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliate.
+        required: true
+      tags:
+      - affiliates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Affiliate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+          description: ''
+    patch:
+      operationId: affiliates_partial_update
+      description: Patch a affiliate
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliate.
+        required: true
+      tags:
+      - affiliates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+          description: ''
+    delete:
+      operationId: affiliates_destroy
+      description: Delete a affiliate
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliate.
+        required: true
+      tags:
+      - affiliates
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /affiliations/:
+    get:
+      operationId: affiliations_list
+      description: Return a list of all the affiliations
+      tags:
+      - affiliations
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliation'
+          description: ''
+    post:
+      operationId: affiliations_create
+      description: Create a new affiliation
+      tags:
+      - affiliations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+          description: ''
+  /affiliations/{uuid}/:
+    get:
+      operationId: affiliations_retrieve
+      description: Return the details of an affiliation
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliation.
+        required: true
+      tags:
+      - affiliations
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+          description: ''
+    put:
+      operationId: affiliations_update
+      description: Update an affiliation
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliation.
+        required: true
+      tags:
+      - affiliations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Affiliation'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+          description: ''
+    patch:
+      operationId: affiliations_partial_update
+      description: Patch an affiliation
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliation.
+        required: true
+      tags:
+      - affiliations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAffiliation'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+          description: ''
+    delete:
+      operationId: affiliations_destroy
+      description: Delete an affiliation
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this affiliation.
+        required: true
+      tags:
+      - affiliations
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /check-types/:
+    get:
+      operationId: check_types_list
+      description: Return a list of all the check_type
+      tags:
+      - check-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckType'
+          description: ''
+    post:
+      operationId: check_types_create
+      description: Create a new check_type
+      tags:
+      - check-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckType'
+          description: ''
+  /check-types/{uuid}/:
+    get:
+      operationId: check_types_retrieve
+      description: Return the details of an check_type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this check type.
+        required: true
+      tags:
+      - check-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckType'
+          description: ''
+    put:
+      operationId: check_types_update
+      description: Update an check_type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this check type.
+        required: true
+      tags:
+      - check-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckType'
+          description: ''
+    patch:
+      operationId: check_types_partial_update
+      description: Patch an check_type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this check type.
+        required: true
+      tags:
+      - check-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCheckType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCheckType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCheckType'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckType'
+          description: ''
+    delete:
+      operationId: check_types_destroy
+      description: Delete an check_type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this check type.
+        required: true
+      tags:
+      - check-types
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /events/:
+    get:
+      operationId: events_list
+      description: Return a list of all the events
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+          description: ''
+    post:
+      operationId: events_create
+      description: Create a new event
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+  /events/{uuid}/:
+    get:
+      operationId: events_retrieve
+      description: Return the details of an event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this event.
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    put:
+      operationId: events_update
+      description: Update an event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this event.
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    patch:
+      operationId: events_partial_update
+      description: Patch an event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this event.
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    delete:
+      operationId: events_destroy
+      description: Delete an event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this event.
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /faqs/:
+    get:
+      operationId: faqs_list
+      description: Return a list of all FAQs
+      tags:
+      - faqs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Faq'
+          description: ''
+    post:
+      operationId: faqs_create
+      description: Create a new FAQ
+      tags:
+      - faqs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faq'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Faq'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Faq'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faq'
+          description: ''
+  /faqs-viewed/:
+    get:
+      operationId: faqs_viewed_list
+      description: Return a list of all FAQs viewed
+      tags:
+      - faqs-viewed
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FaqViewed'
+          description: ''
+    post:
+      operationId: faqs_viewed_create
+      description: Create a new FAQ viewed
+      tags:
+      - faqs-viewed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaqViewed'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FaqViewed'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FaqViewed'
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaqViewed'
+          description: ''
+  /faqs-viewed/{uuid}/:
+    get:
+      operationId: faqs_viewed_retrieve
+      description: Return the given FAQ viewed
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this FAQ view.
+        required: true
+      tags:
+      - faqs-viewed
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaqViewed'
+          description: ''
+  /faqs/{uuid}/:
+    get:
+      operationId: faqs_retrieve
+      description: Return the given FAQ
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this faq.
+        required: true
+      tags:
+      - faqs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faq'
+          description: ''
+    put:
+      operationId: faqs_update
+      description: Update the given FAQ
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this faq.
+        required: true
+      tags:
+      - faqs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faq'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Faq'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Faq'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faq'
+          description: ''
+    patch:
+      operationId: faqs_partial_update
+      description: Partially update the given FAQ
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this faq.
+        required: true
+      tags:
+      - faqs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFaq'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFaq'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFaq'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faq'
+          description: ''
+    delete:
+      operationId: faqs_destroy
+      description: Delete the given FAQ
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this faq.
+        required: true
+      tags:
+      - faqs
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /locations/:
+    get:
+      operationId: locations_list
+      description: Return a list of all locations
+      tags:
+      - locations
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+          description: ''
+    post:
+      operationId: locations_create
+      description: Create a new location
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /locations/{uuid}/:
+    get:
+      operationId: locations_retrieve
+      description: Return the details of a location
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    put:
+      operationId: locations_update
+      description: Update a location
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    patch:
+      operationId: locations_partial_update
+      description: Patch a location
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    delete:
+      operationId: locations_destroy
+      description: Delete a location
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /me/:
+    get:
+      operationId: me_retrieve
+      description: |-
+        # User Profile
+
+        Get profile of current logged in user.
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /permission-types/:
+    get:
+      operationId: permission_types_list
+      description: Return a list of all permission types
+      tags:
+      - permission-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionType'
+          description: ''
+    post:
+      operationId: permission_types_create
+      description: Create a new permission type
+      tags:
+      - permission-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionType'
+          description: ''
+  /permission-types/{uuid}/:
+    get:
+      operationId: permission_types_retrieve
+      description: Return the details of a permission type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this permission type.
+        required: true
+      tags:
+      - permission-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionType'
+          description: ''
+    put:
+      operationId: permission_types_update
+      description: Update a permission type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this permission type.
+        required: true
+      tags:
+      - permission-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PermissionType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionType'
+          description: ''
+    patch:
+      operationId: permission_types_partial_update
+      description: Patch a permission type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this permission type.
+        required: true
+      tags:
+      - permission-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPermissionType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPermissionType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPermissionType'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionType'
+          description: ''
+    delete:
+      operationId: permission_types_destroy
+      description: Delete a permission type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this permission type.
+        required: true
+      tags:
+      - permission-types
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /practice-areas/:
+    get:
+      operationId: practice_areas_list
+      description: Return a list of all the practice areas
+      tags:
+      - practice-areas
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PracticeArea'
+          description: ''
+    post:
+      operationId: practice_areas_create
+      description: Create a new sponsor practice area
+      tags:
+      - practice-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeArea'
+          description: ''
+  /practice-areas/{uuid}/:
+    get:
+      operationId: practice_areas_retrieve
+      description: Return the details of a practice area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this practice area.
+        required: true
+      tags:
+      - practice-areas
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeArea'
+          description: ''
+    put:
+      operationId: practice_areas_update
+      description: Update a practice area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this practice area.
+        required: true
+      tags:
+      - practice-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PracticeArea'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeArea'
+          description: ''
+    patch:
+      operationId: practice_areas_partial_update
+      description: Patch (partially update) a practice area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this practice area.
+        required: true
+      tags:
+      - practice-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPracticeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPracticeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPracticeArea'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeArea'
+          description: ''
+    delete:
+      operationId: practice_areas_destroy
+      description: Delete a practice area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this practice area.
+        required: true
+      tags:
+      - practice-areas
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /program-areas/:
+    get:
+      operationId: program_areas_list
+      description: Return a list of all the program areas
+      tags:
+      - program-areas
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProgramArea'
+          description: ''
+    post:
+      operationId: program_areas_create
+      description: Create a new program area
+      tags:
+      - program-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramArea'
+          description: ''
+  /program-areas/{uuid}/:
+    get:
+      operationId: program_areas_retrieve
+      description: Return the details of a program area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this program area.
+        required: true
+      tags:
+      - program-areas
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramArea'
+          description: ''
+    put:
+      operationId: program_areas_update
+      description: Update a program area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this program area.
+        required: true
+      tags:
+      - program-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProgramArea'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramArea'
+          description: ''
+    patch:
+      operationId: program_areas_partial_update
+      description: Patch a program area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this program area.
+        required: true
+      tags:
+      - program-areas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramArea'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramArea'
+          description: ''
+    delete:
+      operationId: program_areas_destroy
+      description: Delete a program area
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this program area.
+        required: true
+      tags:
+      - program-areas
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /projects/:
+    get:
+      operationId: projects_list
+      description: Return a list of all the projects
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+          description: ''
+    post:
+      operationId: projects_create
+      description: Create a new project
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Project'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /projects/{uuid}/:
+    get:
+      operationId: projects_retrieve
+      description: Return the details of a project
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    put:
+      operationId: projects_update
+      description: Update a project
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this project.
+        required: true
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Project'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    patch:
+      operationId: projects_partial_update
+      description: Patch a project
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this project.
+        required: true
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProject'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProject'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProject'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    delete:
+      operationId: projects_destroy
+      description: Delete a project
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /sdgs/:
+    get:
+      operationId: sdgs_list
+      description: Return a list of all the recurring events
+      tags:
+      - sdgs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sdg'
+          description: ''
+    post:
+      operationId: sdgs_create
+      description: Create a new recurring event
+      tags:
+      - sdgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sdg'
+          description: ''
+  /sdgs/{uuid}/:
+    get:
+      operationId: sdgs_retrieve
+      description: Return the details of a recurring event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this sdg.
+        required: true
+      tags:
+      - sdgs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sdg'
+          description: ''
+    put:
+      operationId: sdgs_update
+      description: Update a recurring event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this sdg.
+        required: true
+      tags:
+      - sdgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Sdg'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sdg'
+          description: ''
+    patch:
+      operationId: sdgs_partial_update
+      description: Patch a recurring event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this sdg.
+        required: true
+      tags:
+      - sdgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSdg'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSdg'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSdg'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sdg'
+          description: ''
+    delete:
+      operationId: sdgs_destroy
+      description: Delete a recurring event
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this sdg.
+        required: true
+      tags:
+      - sdgs
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /skills/:
+    get:
+      operationId: skills_list
+      description: Return a list of all skills
+      tags:
+      - skills
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+          description: ''
+    post:
+      operationId: skills_create
+      description: Create a new skill
+      tags:
+      - skills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skill'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Skill'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+  /skills/{uuid}/:
+    get:
+      operationId: skills_retrieve
+      description: Return the details of a skill
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - skills
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    put:
+      operationId: skills_update
+      description: Update a skill
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - skills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skill'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Skill'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    patch:
+      operationId: skills_partial_update
+      description: Patch a skill
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - skills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    delete:
+      operationId: skills_destroy
+      description: Delete a skill
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - skills
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /stack-element-types/:
+    get:
+      operationId: stack_element_types_list
+      description: Return a list of all the stack element types
+      tags:
+      - stack-element-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackElementType'
+          description: ''
+    post:
+      operationId: stack_element_types_create
+      description: Create a new stack element type
+      tags:
+      - stack-element-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackElementType'
+          description: ''
+  /stack-element-types/{uuid}/:
+    get:
+      operationId: stack_element_types_retrieve
+      description: Return the details stack element type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this stack element type.
+        required: true
+      tags:
+      - stack-element-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackElementType'
+          description: ''
+    put:
+      operationId: stack_element_types_update
+      description: Update a stack element type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this stack element type.
+        required: true
+      tags:
+      - stack-element-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StackElementType'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackElementType'
+          description: ''
+    patch:
+      operationId: stack_element_types_partial_update
+      description: Patch a stack element type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this stack element type.
+        required: true
+      tags:
+      - stack-element-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStackElementType'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStackElementType'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStackElementType'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackElementType'
+          description: ''
+    delete:
+      operationId: stack_element_types_destroy
+      description: Delete a stack element type
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this stack element type.
+        required: true
+      tags:
+      - stack-element-types
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /technologies/:
+    get:
+      operationId: technologies_list
+      description: Return a list of all the technologies
+      tags:
+      - technologies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Technology'
+          description: ''
+    post:
+      operationId: technologies_create
+      description: Create a new technology
+      tags:
+      - technologies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Technology'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Technology'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Technology'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Technology'
+          description: ''
+  /technologies/{uuid}/:
+    get:
+      operationId: technologies_retrieve
+      description: Return the details of a technology
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this technology.
+        required: true
+      tags:
+      - technologies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Technology'
+          description: ''
+    put:
+      operationId: technologies_update
+      description: Update a technology
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this technology.
+        required: true
+      tags:
+      - technologies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Technology'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Technology'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Technology'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Technology'
+          description: ''
+    patch:
+      operationId: technologies_partial_update
+      description: Patch a technology
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this technology.
+        required: true
+      tags:
+      - technologies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTechnology'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTechnology'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTechnology'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Technology'
+          description: ''
+    delete:
+      operationId: technologies_destroy
+      description: Delete a technology
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this technology.
+        required: true
+      tags:
+      - technologies
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      description: Return a list of all the existing users
+      summary: Users List
+      parameters:
+      - in: query
+        name: created_at
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: current_job_title
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: current_skills
+        schema:
+          type: string
+        description: User-defined set of skills
+      - in: query
+        name: email
+        schema:
+          type: string
+        description: Filter by email address
+        examples:
+          Example1:
+            value: demo-email@email.com,
+            summary: Demo email
+            description: get the demo user
+      - in: query
+        name: first_name
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: github_handle
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: gmail
+        schema:
+          type: string
+          format: email
+          maxLength: 254
+      - in: query
+        name: last_name
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: linkedin_account
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: phone
+        schema:
+          type: string
+          maxLength: 128
+      - in: query
+        name: preferred_email
+        schema:
+          type: string
+          format: email
+          maxLength: 254
+      - in: query
+        name: slack_id
+        schema:
+          type: string
+          maxLength: 11
+      - in: query
+        name: target_job_title
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: target_skills
+        schema:
+          type: string
+          maxLength: 255
+      - in: query
+        name: texting_ok
+        schema:
+          type: boolean
+      - in: query
+        name: time_zone
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: updated_at
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: username
+        schema:
+          type: string
+        description: Filter by username
+        examples:
+          Example1:
+            value: demo-user
+            summary: Demo username
+            description: get the demo user
+      - in: query
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: users_create
+      description: Create a new user
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /users/{uuid}/:
+    get:
+      operationId: users_retrieve
+      description: Return the given user
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      description: Update the given user
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      description: Partially update the given user
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: users_destroy
+      description: Delete the given user
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Affiliate:
+      type: object
+      description: Used to retrieve Sponsor Partner info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        logo:
+          type: string
+          format: uri
+          maxLength: 200
+        is_active:
+          type: boolean
+          nullable: true
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        is_org_sponsor:
+          type: boolean
+          nullable: true
+        is_org_partner:
+          type: boolean
+          nullable: true
+      required:
+      - name
+      - uuid
+    Affiliation:
+      type: object
+      description: Used to retrieve Affiliation
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        affiliate:
+          type: string
+          format: uuid
+        project:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        is_sponsor:
+          type: boolean
+          nullable: true
+        is_partner:
+          type: boolean
+          nullable: true
+      required:
+      - affiliate
+      - created_at
+      - project
+      - uuid
+    CheckType:
+      type: object
+      description: Used to retrieve check_type info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+      required:
+      - name
+      - uuid
+    Event:
+      type: object
+      description: Used to retrieve event info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        start_time:
+          type: string
+          format: time
+          nullable: true
+          title: Start
+        duration_in_min:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        video_conference_url:
+          type: string
+          format: uri
+          maxLength: 200
+        additional_info:
+          type: string
+        project:
+          type: string
+          format: uuid
+      required:
+      - name
+      - project
+      - uuid
+    Faq:
+      type: object
+      description: Used to retrieve faq info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        question:
+          type: string
+          maxLength: 255
+        answer:
+          type: string
+          maxLength: 255
+        tool_tip_name:
+          type: string
+          maxLength: 255
+      required:
+      - question
+      - uuid
+    FaqViewed:
+      type: object
+      description: Retrieve each date/time the specified FAQ is viewed
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        faq:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - faq
+      - uuid
+    Location:
+      type: object
+      description: Used to retrieve Location info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          title: Location name
+          maxLength: 255
+        address_line_1:
+          type: string
+          maxLength: 255
+        address_line_2:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        zip:
+          type: string
+        phone:
+          type: string
+          maxLength: 128
+      required:
+      - address_line_1
+      - city
+      - name
+      - state
+      - uuid
+      - zip
+    PatchedAffiliate:
+      type: object
+      description: Used to retrieve Sponsor Partner info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        logo:
+          type: string
+          format: uri
+          maxLength: 200
+        is_active:
+          type: boolean
+          nullable: true
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        is_org_sponsor:
+          type: boolean
+          nullable: true
+        is_org_partner:
+          type: boolean
+          nullable: true
+    PatchedAffiliation:
+      type: object
+      description: Used to retrieve Affiliation
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        affiliate:
+          type: string
+          format: uuid
+        project:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        is_sponsor:
+          type: boolean
+          nullable: true
+        is_partner:
+          type: boolean
+          nullable: true
+    PatchedCheckType:
+      type: object
+      description: Used to retrieve check_type info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+    PatchedEvent:
+      type: object
+      description: Used to retrieve event info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        start_time:
+          type: string
+          format: time
+          nullable: true
+          title: Start
+        duration_in_min:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        video_conference_url:
+          type: string
+          format: uri
+          maxLength: 200
+        additional_info:
+          type: string
+        project:
+          type: string
+          format: uuid
+    PatchedFaq:
+      type: object
+      description: Used to retrieve faq info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        question:
+          type: string
+          maxLength: 255
+        answer:
+          type: string
+          maxLength: 255
+        tool_tip_name:
+          type: string
+          maxLength: 255
+    PatchedLocation:
+      type: object
+      description: Used to retrieve Location info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          title: Location name
+          maxLength: 255
+        address_line_1:
+          type: string
+          maxLength: 255
+        address_line_2:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        zip:
+          type: string
+        phone:
+          type: string
+          maxLength: 128
+    PatchedPermissionType:
+      type: object
+      description: Used to retrieve each permission_type info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+    PatchedPracticeArea:
+      type: object
+      description: Used to retrieve practice area info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+    PatchedProgramArea:
+      type: object
+      description: Used to retrieve program_area info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+          maxLength: 200
+    PatchedProject:
+      type: object
+      description: Used to retrieve project info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        github_org_id:
+          type: string
+          description: 'Can be retrieved from gh api with the following: curl -H "Authorization:
+            token [gh_PAT]" https://api.github.com/orgs/[org]'
+          maxLength: 8
+        github_primary_repo_id:
+          type: string
+          description: 'Can be retrieved from gh api with the following: curl -H "Authorization:
+            token [gh_PAT]" https://api.github.com/repos/[org]/[repo]'
+          maxLength: 9
+        hide:
+          type: boolean
+        google_drive_id:
+          type: string
+          maxLength: 255
+        image_logo:
+          type: string
+          format: uri
+          maxLength: 200
+        image_hero:
+          type: string
+          format: uri
+          maxLength: 200
+        image_icon:
+          type: string
+          format: uri
+          maxLength: 200
+    PatchedSdg:
+      type: object
+      description: Used to retrieve Sdg
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+          maxLength: 200
+    PatchedSkill:
+      type: object
+      description: Used to retrieve Skill info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+    PatchedStackElementType:
+      type: object
+      description: Used to retrieve stack element types
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+    PatchedTechnology:
+      type: object
+      description: Used to retrieve technology info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        logo:
+          type: string
+          format: uri
+          maxLength: 200
+        active:
+          type: boolean
+          nullable: true
+    PatchedUser:
+      type: object
+      description: Used to retrieve user info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        gmail:
+          type: string
+          format: email
+          maxLength: 254
+        preferred_email:
+          type: string
+          format: email
+          maxLength: 254
+        current_job_title:
+          type: string
+          maxLength: 255
+        target_job_title:
+          type: string
+          maxLength: 255
+        current_skills:
+          type: string
+          maxLength: 255
+        target_skills:
+          type: string
+          maxLength: 255
+        linkedin_account:
+          type: string
+          maxLength: 255
+        github_handle:
+          type: string
+          maxLength: 255
+        slack_id:
+          type: string
+          maxLength: 11
+        phone:
+          type: string
+          maxLength: 128
+        texting_ok:
+          type: boolean
+        time_zone:
+          type: string
+    PermissionType:
+      type: object
+      description: Used to retrieve each permission_type info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+      required:
+      - name
+      - uuid
+    PracticeArea:
+      type: object
+      description: Used to retrieve practice area info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+      required:
+      - created_at
+      - name
+      - updated_at
+      - uuid
+    ProgramArea:
+      type: object
+      description: Used to retrieve program_area info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - name
+      - uuid
+    Project:
+      type: object
+      description: Used to retrieve project info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        github_org_id:
+          type: string
+          description: 'Can be retrieved from gh api with the following: curl -H "Authorization:
+            token [gh_PAT]" https://api.github.com/orgs/[org]'
+          maxLength: 8
+        github_primary_repo_id:
+          type: string
+          description: 'Can be retrieved from gh api with the following: curl -H "Authorization:
+            token [gh_PAT]" https://api.github.com/repos/[org]/[repo]'
+          maxLength: 9
+        hide:
+          type: boolean
+        google_drive_id:
+          type: string
+          maxLength: 255
+        image_logo:
+          type: string
+          format: uri
+          maxLength: 200
+        image_hero:
+          type: string
+          format: uri
+          maxLength: 200
+        image_icon:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - completed_at
+      - created_at
+      - name
+      - updated_at
+      - uuid
+    Sdg:
+      type: object
+      description: Used to retrieve Sdg
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - name
+      - uuid
+    Skill:
+      type: object
+      description: Used to retrieve Skill info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      - uuid
+    StackElementType:
+      type: object
+      description: Used to retrieve stack element types
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+      required:
+      - name
+      - uuid
+    Technology:
+      type: object
+      description: Used to retrieve technology info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        logo:
+          type: string
+          format: uri
+          maxLength: 200
+        active:
+          type: boolean
+          nullable: true
+      required:
+      - name
+      - uuid
+    User:
+      type: object
+      description: Used to retrieve user info
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        gmail:
+          type: string
+          format: email
+          maxLength: 254
+        preferred_email:
+          type: string
+          format: email
+          maxLength: 254
+        current_job_title:
+          type: string
+          maxLength: 255
+        target_job_title:
+          type: string
+          maxLength: 255
+        current_skills:
+          type: string
+          maxLength: 255
+        target_skills:
+          type: string
+          maxLength: 255
+        linkedin_account:
+          type: string
+          maxLength: 255
+        github_handle:
+          type: string
+          maxLength: 255
+        slack_id:
+          type: string
+          maxLength: 11
+        phone:
+          type: string
+          maxLength: 128
+        texting_ok:
+          type: boolean
+        time_zone:
+          type: string
+      required:
+      - created_at
+      - email
+      - time_zone
+      - updated_at
+      - username
+      - uuid
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
