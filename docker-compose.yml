@@ -22,7 +22,8 @@ services:
     ports:
       - 5432:5432
   mkdocs:
-    image: hackforlaops/mkdocs:testing
+    # image: hackforlaops/mkdocs:latest
+    build: ./docs
     command: mkdocs serve --dev-addr 0.0.0.0:8000
     ports:
       - 8005:8000
