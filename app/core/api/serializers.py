@@ -1,3 +1,7 @@
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter
+from drf_spectacular.utils import extend_schema_field
+from drf_spectacular.utils import extend_schema_serializer
 from rest_framework import serializers
 from timezone_field.rest_framework import TimeZoneSerializerField
 
@@ -38,10 +42,17 @@ class PracticeAreaSerializer(serializers.ModelSerializer):
         )
 
 
+@extend_schema_serializer(
+    OpenApiParameter(name="target_skills", description="User-defined target skills")
+)
 class UserSerializer(serializers.ModelSerializer):
-    """Used to retrieve user info"""
+    """Users of the application"""
 
     time_zone = TimeZoneSerializerField(use_pytz=False)
+
+    @extend_schema_field(OpenApiTypes.STR)
+    def get_time_zone(self, obj):
+        return obj.time_zone
 
     class Meta:
         model = User

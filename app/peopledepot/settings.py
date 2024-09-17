@@ -175,7 +175,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("core.api.permissions.DenyAny",),
+    "DEFAULT_PERMISSION_CLASSES": ("core.api.permissions.AllowAny",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ),
@@ -198,5 +198,9 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "PeopleDepot API",
     "DESCRIPTION": "",
     "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_INCLUDE_SCHEMA": True,
+    "SERVE_PUBLIC": True,
+    "SCHEMA_PATH_PREFIX": "/api/v1",
+    "SCHEMA_PATH_PREFIX_TRIM": True,
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }
