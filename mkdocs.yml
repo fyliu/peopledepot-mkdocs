@@ -70,6 +70,9 @@ extra:
     - icon: fontawesome/solid/paper-plane
       link: mailto:peopledepot@hackforla.org
 
+extra_css:
+  - stylesheets/extra.css
+
 copyright: Copyright &copy; 2020-2022, Civic Tech Structure
 
 validation:
