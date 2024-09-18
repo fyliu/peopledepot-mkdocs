@@ -3,6 +3,7 @@ nav:
   - topics
   - tutorials
   - howto
+  - ref
   - API (redoc): redoc.md
-  - API (swagger): swagger.md
+  - API (swagger): swagger2.md
   - contributing
