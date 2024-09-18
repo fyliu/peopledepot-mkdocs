@@ -11,8 +11,10 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.code.select
+    - header.autohide
     - navigation.expand
-    - navigation.indexes
+    - navigation.expand
+    - navigation.footer
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs
@@ -25,6 +27,10 @@ plugins:
   - search
   - autolinks
   - awesome-pages
+  - minify:
+      minify_html: true
+      htmlmin_opts:
+        remove_comments: true
   - redoc-tag
   - render_swagger
 
@@ -54,6 +60,17 @@ markdown_extensions:
   - toc:
       title: On this page
       permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/hackforla/peopledepot
+    - icon: fontawesome/brands/slack
+      link: https://hackforla.slack.com/archives/C02PTACSRJQ
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:peopledepot@hackforla.org
+
+copyright: Copyright &copy; 2020-2022, Civic Tech Structure
 
 validation:
   absolute_links: relative_to_docs
