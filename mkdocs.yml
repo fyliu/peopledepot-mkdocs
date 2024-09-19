@@ -15,6 +15,7 @@ theme:
     - navigation.expand
     - navigation.expand
     - navigation.footer
+    - navigation.index
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs

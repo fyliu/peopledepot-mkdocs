@@ -1,10 +1,7 @@
----
-hide:
-  - navigation
-  - toc
----
-
 # Site Contents
+
+This is roughly the planned structure for the site.
+One thing to consider is the linkablity of the pages. If another site links to one of the pages, will that be broken if we restructured the site? If we split the pages into folders based on the type of documentation (Explanation, Tutorial, How-to Guide, Reference, etc.), that might be more linkable.
 
 1. About
     - [Introduction](intro.md)

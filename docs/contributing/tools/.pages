@@ -1,4 +1,5 @@
 nav:
+  - index.md
   - scripts.md
   - mkdocs.md
   - ...

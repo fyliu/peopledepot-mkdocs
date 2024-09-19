@@ -1,4 +1,5 @@
 nav:
+  - index.md
   - team.md
   - dev_environment.md
   - issues.md
