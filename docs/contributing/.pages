@@ -1,9 +1,13 @@
 nav:
-  - index.md
-  - team.md
-  - dev_environment.md
-  - issues.md
-  - git.md
+  - Intro: index.md
+  - Developer:
+    - team.md
+    - dev_environment.md
+    - issues.md
+    - git.md
+    - howto
+  - Project Management:
+    - team.md
   - documentation.md
   - howto
   - ...

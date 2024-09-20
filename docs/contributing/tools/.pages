@@ -1,5 +1,5 @@
 nav:
-  - index.md
+  - Intro: index.md
   - scripts.md
   - mkdocs.md
   - ...
